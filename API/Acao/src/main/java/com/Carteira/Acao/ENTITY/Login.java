@@ -16,8 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+
 @AllArgsConstructor
 public class Login implements UserDetails, Serializable {
 
@@ -29,8 +28,9 @@ public class Login implements UserDetails, Serializable {
     private Long idLogin;
     private String Login;
     private String senha;
+    private String cpf;
 
-    @OneToMany(mappedBy = "Login")
+    @OneToMany(mappedBy = "login")
     @JsonIgnore
     private List<Acoes> acoes;
 
@@ -43,12 +43,39 @@ public class Login implements UserDetails, Serializable {
     private boolean enabled;
 
     public Login() {
-
         this.nivelPermissao = NivelPermissao.NORMAL;
-        this.accountNonExpired = false;
-        this.accountNonLocked = false;
-        this.credentialsNonExpired = false;
-        this.enabled = false;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getLogin() {
+        return Login;
+    }
+
+    public void setLogin(String login) {
+        Login = login;
+    }
+
+    public Long getIdLogin() {
+        return idLogin;
+    }
+
+    public void setIdLogin(Long idLogin) {
+        this.idLogin = idLogin;
     }
 
     @Override
