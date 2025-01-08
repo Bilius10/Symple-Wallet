@@ -9,9 +9,10 @@ import java.util.Optional;
 
 public interface LoginRepository extends JpaRepository<Login, Long> {
 
-    @Query("SELECT l FROM Login l WHERE l.Login = :login")
+    @Query("SELECT l FROM Login l WHERE l.login = :login")
     UserDetails findUserDetailsByName(String login);
 
-    @Query("SELECT l.cpf FROM Login l WHERE l.cpf = :cpf")
+    @Query("SELECT l FROM Login l WHERE l.cpf = :cpf")
     Optional<Login> findLoginByCpf(String cpf);
+
 }

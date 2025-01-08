@@ -1,40 +1,93 @@
 import flet as ft
-import requests
+
 
 def main(page: ft.Page):
-     # Configurar o título da página
-    page.title = "Tela de Registro"
+    page.title = "Carteira de Ação"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.bgcolor = "#000000"
+
     
-    # Criar os campos de entrada
-    login_input = ft.TextField(label="Login", autofocus=True)
-    senha_input = ft.TextField(label="Senha", password=True)
-    cpf_input = ft.TextField(label="CPF", keyboard_type=ft.KeyboardType.NUMBER)
+    def Registrar(evento):
+        page.clean()
 
-    # Função para enviar os dados para o servidor
-    def on_register_click(e):
-        # Captura os dados inseridos nos campos
-        login = login_input.value
-        senha = senha_input.value
-        cpf = cpf_input.value
+        def EnviarRegistro():
+            pass
         
-        # Criar o corpo da requisição
-        data = {"Login": login, "senha": senha, "cpf": cpf}
+        login_card = ft.Container(
+        content=ft.Column(
+            [
+                 ft.Text(
+                    "Registrar",
+                    size=35,  
+                    weight=ft.FontWeight.BOLD,
+                    color="white",
+                ),
+                ft.TextField(
+                    label="Nome", width=250, height=50, bgcolor="gray"
+                ),  
+                ft.TextField(
+                    label="Senha", width=250, height=50, password=True, bgcolor="gray"
+                ),
+                ft.TextField(
+                    label="Cpf", width=250, height=50, password=True, bgcolor="gray"
+                ),
+                ft.ElevatedButton(
+                    "Enviar", width=200, height=45
+                ),  
+                  
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            spacing=15,
+        ),
+        width=300,
+        height=370,
+        padding=20,
+        border_radius=ft.border_radius.all(12),
+        alignment=ft.alignment.center,
+        bgcolor="#111111",
+
         
-        # Enviar os dados via POST para o servidor
-        try:
-            response = requests.post("http://localhost:8080/auth/registro", json=data)
-            if response.status_code == 200:
-                page.add(ft.Text("Registro bem-sucedido!"))
-            else:
-                page.add(ft.Text("Erro ao registrar. Tente novamente."))
-        except requests.exceptions.RequestException as e:
-            page.add(ft.Text(f"Erro ao enviar dados: {e}"))
+        )
+        page.add(login_card)
 
-    # Criar botão de registro
-    register_button = ft.ElevatedButton("Registrar", on_click=on_register_click)
 
-    # Adicionar os componentes na página
-    page.add(login_input, senha_input, cpf_input, register_button)
+    login_card = ft.Container(
+        content=ft.Column(
+            [
+                 ft.Text(
+                    "Login",
+                    size=35,  
+                    weight=ft.FontWeight.BOLD,
+                    color="white",
+                ),
+                ft.TextField(
+                    label="CPF", width=250, height=50, bgcolor="gray"
+                ),  
+                ft.TextField(
+                    label="Senha", width=250, height=50, password=True, bgcolor="gray"
+                ),
+                ft.ElevatedButton(
+                    "Enviar", width=200, height=45
+                ),  
+                ft.CupertinoButton(
+                    "Registrar", width=150, height=55, on_click=Registrar
+                ),  
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            spacing=15,
+        ),
+        width=300,
+        height=370,
+        padding=20,
+        border_radius=ft.border_radius.all(12),
+        alignment=ft.alignment.center,
+        bgcolor="#111111",
+    )
+
+    page.add(login_card)
 
 
 ft.app(target=main)

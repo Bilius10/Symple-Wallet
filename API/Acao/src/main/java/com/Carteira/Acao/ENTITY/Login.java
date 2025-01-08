@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-
 @AllArgsConstructor
 public class Login implements UserDetails, Serializable {
 
@@ -26,7 +25,7 @@ public class Login implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLogin;
-    private String Login;
+    private String login;
     private String senha;
     private String cpf;
 
@@ -46,12 +45,20 @@ public class Login implements UserDetails, Serializable {
         this.nivelPermissao = NivelPermissao.NORMAL;
     }
 
-    public String getCpf() {
-        return cpf;
+    public Long getIdLogin() {
+        return idLogin;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setIdLogin(Long idLogin) {
+        this.idLogin = idLogin;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getSenha() {
@@ -62,20 +69,12 @@ public class Login implements UserDetails, Serializable {
         this.senha = senha;
     }
 
-    public String getLogin() {
-        return Login;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setLogin(String login) {
-        Login = login;
-    }
-
-    public Long getIdLogin() {
-        return idLogin;
-    }
-
-    public void setIdLogin(Long idLogin) {
-        this.idLogin = idLogin;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override
@@ -95,7 +94,7 @@ public class Login implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return this.Login;
+        return this.login;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Acoes implements Serializable {
     private static final long serialVersionUID = 2L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idAcao;
     private String codigo;
     private String Nome;
