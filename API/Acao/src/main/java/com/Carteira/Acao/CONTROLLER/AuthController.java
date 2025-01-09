@@ -1,7 +1,8 @@
 package com.Carteira.Acao.CONTROLLER;
 
-import com.Carteira.Acao.DTO.LoginDTO;
-import com.Carteira.Acao.DTO.RegistroDTO;
+import com.Carteira.Acao.DTO.Devolucao.LoginRespostaDTO;
+import com.Carteira.Acao.DTO.Recebimento.LoginDTO;
+import com.Carteira.Acao.DTO.Recebimento.RegistroDTO;
 import com.Carteira.Acao.ENTITY.Login;
 import com.Carteira.Acao.EXCEPTIONS.RegraNegocioException;
 import com.Carteira.Acao.SERVICES.LoginService;
@@ -34,13 +35,13 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.OK).body(loginService.criarConta(recebeDTO));
 
         } catch (Exception | RegraNegocioException error) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage() );
         }
 
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO loginDTO) throws RegraNegocioException{
+    public ResponseEntity<Object> login(@RequestBody @Valid LoginDTO loginDTO) throws RegraNegocioException{
 
         try {
 

@@ -1,5 +1,6 @@
 package com.Carteira.Acao.SERVICES;
 
+import com.Carteira.Acao.DTO.Devolucao.LoginRespostaDTO;
 import com.Carteira.Acao.ENTITY.Login;
 import com.Carteira.Acao.EXCEPTIONS.RegraNegocioException;
 import com.Carteira.Acao.INFRASECURITY.TokenService;
@@ -36,20 +37,22 @@ public class LoginService {
         return loginRepository.save(login);
     }
 
-    public String login(Login login) throws RegraNegocioException{
+    public LoginRespostaDTO login(Login login) throws RegraNegocioException{
 
         Optional<Login> encontreUsuario = loginRepository.findLoginByCpf(login.getCpf());
 
         if(encontreUsuario.isEmpty()){
-            new RegraNegocioException("Cpf incorreto");
+            throw new RegraNegocioException("Cpf incorreto");
         }
 
-        var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
-        System.out.println(usernamePasswordAuthenticationToken.getCredentials());
-        var auth = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        System.out.println(3);
-        var token = tokenService.generateToken((Login) auth.getPrincipal());
+        var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(encontreUsuario.get().getUsername(),
+                login.getPassword());
 
-        return token;
+        var auth = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+        var token = tokenService.generateToken((Login) auth.getPrincipal());
+        System.out.println(encontreUsuario.get().getLogin());
+        LoginRespostaDTO loginRespostaDTO = new LoginRespostaDTO(token, encontreUsuario.get().getLogin());
+        return loginRespostaDTO;
     }
 }

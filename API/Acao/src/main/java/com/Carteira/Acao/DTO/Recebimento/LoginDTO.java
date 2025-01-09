@@ -1,4 +1,4 @@
-package com.Carteira.Acao.DTO;
+package com.Carteira.Acao.DTO.Recebimento;
 
 import jakarta.validation.constraints.NotBlank;
 

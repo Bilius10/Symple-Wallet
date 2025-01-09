@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Entity
 @AllArgsConstructor
+@ToString
 public class Login implements UserDetails, Serializable {
 
     @Serial
@@ -43,6 +45,11 @@ public class Login implements UserDetails, Serializable {
 
     public Login() {
         this.nivelPermissao = NivelPermissao.NORMAL;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+        this.enabled = true;
+
     }
 
     public Long getIdLogin() {
@@ -94,7 +101,7 @@ public class Login implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return this.login;
+        return this.cpf;
     }
 
     @Override

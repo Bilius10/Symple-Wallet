@@ -1,5 +1,6 @@
 import flet as ft
-
+from Login import login_page
+from Registro import register_page
 
 def main(page: ft.Page):
     page.title = "Carteira de Ação"
@@ -7,87 +8,15 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.bgcolor = "#000000"
 
-    
-    def Registrar(evento):
+    def go_to_register(event):
         page.clean()
+        page.add(register_page(go_to_login))
 
-        def EnviarRegistro():
-            pass
+    def go_to_login(event=None):
+        page.clean()
+        page.add(login_page(go_to_register))
         
-        login_card = ft.Container(
-        content=ft.Column(
-            [
-                 ft.Text(
-                    "Registrar",
-                    size=35,  
-                    weight=ft.FontWeight.BOLD,
-                    color="white",
-                ),
-                ft.TextField(
-                    label="Nome", width=250, height=50, bgcolor="gray"
-                ),  
-                ft.TextField(
-                    label="Senha", width=250, height=50, password=True, bgcolor="gray"
-                ),
-                ft.TextField(
-                    label="Cpf", width=250, height=50, password=True, bgcolor="gray"
-                ),
-                ft.ElevatedButton(
-                    "Enviar", width=200, height=45
-                ),  
-                  
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=15,
-        ),
-        width=300,
-        height=370,
-        padding=20,
-        border_radius=ft.border_radius.all(12),
-        alignment=ft.alignment.center,
-        bgcolor="#111111",
-
-        
-        )
-        page.add(login_card)
-
-
-    login_card = ft.Container(
-        content=ft.Column(
-            [
-                 ft.Text(
-                    "Login",
-                    size=35,  
-                    weight=ft.FontWeight.BOLD,
-                    color="white",
-                ),
-                ft.TextField(
-                    label="CPF", width=250, height=50, bgcolor="gray"
-                ),  
-                ft.TextField(
-                    label="Senha", width=250, height=50, password=True, bgcolor="gray"
-                ),
-                ft.ElevatedButton(
-                    "Enviar", width=200, height=45
-                ),  
-                ft.CupertinoButton(
-                    "Registrar", width=150, height=55, on_click=Registrar
-                ),  
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=15,
-        ),
-        width=300,
-        height=370,
-        padding=20,
-        border_radius=ft.border_radius.all(12),
-        alignment=ft.alignment.center,
-        bgcolor="#111111",
-    )
-
-    page.add(login_card)
-
+    # Inicializa com a página de login
+    go_to_login()
 
 ft.app(target=main)
