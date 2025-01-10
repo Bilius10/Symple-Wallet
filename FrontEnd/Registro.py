@@ -1,14 +1,17 @@
 import flet as ft
 import requests
+import time
 
 def register_page(on_back):
     
-    nome_value = ft.TextField(label="Nome", width=250, height=50, bgcolor="gray")
-    senha_value = ft.TextField(label="Senha", width=250, height=50, password=True, bgcolor="gray")
-    cpf_value = ft.TextField(label="CPF", width=250, height=50, bgcolor="gray")
+    image = "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/FundoLoginRegistro.png"
+    nome_value = ft.TextField(label="Nome", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image,
+                              border_color="#f7931a")
+    senha_value = ft.TextField(label="Senha", width=400, height=50, password=True, label_style= ft.TextStyle(color="#000000"),       prefix=image, border_color="#f7931a")
+    cpf_value = ft.TextField(label="CPF", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
     
     
-    mensagem_api = ft.Text("", color="white")
+    mensagem_api = ft.Text("", color="white", font_family="MinhaFonte")
 
     def fazerRegistro(evento):
         
@@ -41,35 +44,44 @@ def register_page(on_back):
         nome_value.update()
         senha_value.update()
         cpf_value.update()
-    
+
+        time.sleep(1)
+        mensagem_api.value = ""
+        mensagem_api.update()
+        
     return ft.Container(
         content=ft.Column(
             [
                 ft.Text(
-                    "Registrar",
-                    size=35,
-                    weight=ft.FontWeight.BOLD,
-                    color="white",
+                    value="Registrar",
+                    color="#ed8200",
+                    font_family="MinhaFonte",
+                    size=80
                 ),
+
+                ft.Container(height=40),
+
                 nome_value,
                 senha_value,
                 cpf_value,
-                ft.ElevatedButton(
-                    "Enviar", width=200, height=45, on_click=fazerRegistro
+
+                ft.CupertinoButton(
+                    content=ft.Text("Enviar", color="#ed8200", font_family="MinhaFonte", size=30), width=200, height=70, on_click=fazerRegistro
                 ),
                 mensagem_api,  
                 ft.CupertinoButton(
-                    "Voltar", width=150, height=55, on_click=on_back
+                    content=ft.Text("Voltar", color="#ed8200", font_family="MinhaFonte", size=20), width=150, height=55, on_click=on_back
                 ),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=15,
+            spacing=5,
         ),
-        width=300,
-        height=450,
+        width=500,
+        height=500,
         padding=20,
-        border_radius=ft.border_radius.all(12),
+        border_radius=ft.border_radius.all(50),
         alignment=ft.alignment.center,
-        bgcolor="#111111",
+        image_src=image,
+        image_fit=ft.ImageFit.COVER, 
     )
