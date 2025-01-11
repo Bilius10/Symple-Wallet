@@ -1,5 +1,6 @@
 package com.Carteira.Acao.CONTROLLER;
 
+import com.Carteira.Acao.DTO.Devolucao.ErroDTO;
 import com.Carteira.Acao.DTO.Devolucao.LoginRespostaDTO;
 import com.Carteira.Acao.DTO.Recebimento.LoginDTO;
 import com.Carteira.Acao.DTO.Recebimento.RegistroDTO;
@@ -35,7 +36,8 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.OK).body(loginService.criarConta(recebeDTO));
 
         } catch (Exception | RegraNegocioException error) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage() );
+            ErroDTO erroDTO = new ErroDTO(error.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDTO);
         }
 
     }
@@ -52,7 +54,8 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.OK).body(loginService.login(recebeDTO));
 
         } catch (Exception | RegraNegocioException error) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+            ErroDTO erroDTO = new ErroDTO(error.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDTO);
         }
 
     }

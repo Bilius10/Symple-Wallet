@@ -2,7 +2,7 @@ import flet as ft
 import requests
 import time
 
-def register_page(on_back):
+def register_page(on_login):
     
     image = "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/FundoLoginRegistro.png"
     nome_value = ft.TextField(label="Nome", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image,
@@ -28,7 +28,7 @@ def register_page(on_back):
                 mensagem_api.color = "green"
             else:
                 
-                mensagem_api.value = response.json().get("message", "Erro desconhecido.")
+                mensagem_api.value = response.json().get("Mensagem", "Erro desconhecido.")
                 mensagem_api.color = "red"
         except requests.exceptions.RequestException as e:
             mensagem_api.value = f"Erro ao enviar dados: {e}"
@@ -70,7 +70,7 @@ def register_page(on_back):
                 ),
                 mensagem_api,  
                 ft.CupertinoButton(
-                    content=ft.Text("Voltar", color="#ed8200", font_family="MinhaFonte", size=20), width=150, height=55, on_click=on_back
+                    content=ft.Text("Voltar", color="#ed8200", font_family="MinhaFonte", size=20), width=150, height=55, on_click=on_login
                 ),
             ],
             alignment=ft.MainAxisAlignment.CENTER,

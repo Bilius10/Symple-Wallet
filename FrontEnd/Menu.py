@@ -1,6 +1,14 @@
 import flet as ft
 
-def menu_page():
+def menu_page(on_login, on_AdicionarAcao, InfoUsuario):
+    
+    def voltarLogin(event):
+        on_login(event)
+
+    def AdicionarAcao(event):
+        on_AdicionarAcao(InfoUsuario)
+
+    cpf = InfoUsuario.json().get('cpf')
     
     return ft.Container(
         content=ft.Column(
@@ -12,11 +20,14 @@ def menu_page():
                     fit=ft.ImageFit.CONTAIN,  
                 ),
 
-                ft.Container(height=5),
+                ft.Text(
+                    f"{  InfoUsuario.json().get('login')}",
+                    size=30, font_family="MinhaFonte"
+                ),
 
                 ft.CupertinoButton(
                     content=ft.Text("Adicionar Ação", color="#f7931a", font_family="MinhaFonte", size=25),
-                    width=400, height=55, bgcolor="#ffcb8c"
+                    width=400, height=55, bgcolor="#ffcb8c", on_click=AdicionarAcao
                 ),
                 ft.CupertinoButton(
                     content=ft.Text("Carteira", color="#f7931a", font_family="MinhaFonte", size=25),
@@ -27,13 +38,13 @@ def menu_page():
                       width=400, height=55, bgcolor="#ffcb8c"
                 ),
                 ft.CupertinoButton(
-                    content=ft.Text("Sair", color="#f7931a", font_family="MinhaFonte", size=25),
-                    width=400, height=55, bgcolor="#ffcb8c"
+                    content=ft.Text("Voltar ao login", color="#f7931a", font_family="MinhaFonte", size=25),
+                    width=400, height=55, bgcolor="#ffcb8c", on_click=voltarLogin
                 ),
             ],
             alignment=ft.MainAxisAlignment.START,  # Alinha os elementos ao topo
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=25,  # Ajuste o espaçamento conforme necessário
+            spacing=18,  # Ajuste o espaçamento conforme necessário
         ),
         width=500,
         height=700,

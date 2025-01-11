@@ -2,6 +2,7 @@ import flet as ft
 from Login import login_page
 from Registro import register_page
 from Menu import menu_page
+from AdicionarAcao import adicionarAcao_page
 
 def main(page: ft.Page):
     page.title = "Carteira de Ação"
@@ -18,13 +19,18 @@ def main(page: ft.Page):
 
     def go_to_login(event=None):
         page.clean()
+        
         page.add(login_page(go_to_register, go_to_menu))
     
-    def go_to_menu(event):
+    def go_to_menu(InfoUsuario):
         page.clean()
-        page.add(menu_page())
+        page.add(menu_page(go_to_login, go_to_AdicionarAcao, InfoUsuario))
 
-    # Inicializa com a página de login
+    def go_to_AdicionarAcao(InfoUsuario):
+        page.clean()
+        page.add(adicionarAcao_page(go_to_menu, InfoUsuario))
+
     go_to_login()
 
 ft.app(target=main)
+#lembrar de fazer uma forma melhor de transformar as informações do usuario

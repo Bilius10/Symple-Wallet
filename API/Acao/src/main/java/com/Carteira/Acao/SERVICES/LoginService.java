@@ -51,8 +51,10 @@ public class LoginService {
         var auth = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         var token = tokenService.generateToken((Login) auth.getPrincipal());
-        System.out.println(encontreUsuario.get().getLogin());
-        LoginRespostaDTO loginRespostaDTO = new LoginRespostaDTO(token, encontreUsuario.get().getLogin());
+
+        LoginRespostaDTO loginRespostaDTO = new LoginRespostaDTO(token, encontreUsuario.get().getIdLogin(),
+                encontreUsuario.get().getLogin(), encontreUsuario.get().getCpf());
+
         return loginRespostaDTO;
     }
 }

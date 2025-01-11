@@ -26,7 +26,7 @@ def login_page(on_register, on_menu):
                 
             else:
                 
-                mensagem_api.value = response.json().get("message", "Erro desconhecido.")
+                mensagem_api.value = response.json().get("Mensagem", "Erro desconhecido.")
                 mensagem_api.color = "red"
 
         except requests.exceptions.RequestException as e:
@@ -46,17 +46,15 @@ def login_page(on_register, on_menu):
         mensagem_api.update()
 
         if(response.status_code == 200):
-            on_menu(evento)
+            on_menu(response)
         
     return ft.Container(
         content=ft.Column(
             [
                 ft.Text(
-                    value="Login",
-                    color="#ed8200",
-                    font_family="MinhaFonte",
-                    size=80
+                    value="Login", color="#ed8200", font_family="MinhaFonte", size=80
                 ),
+
                 ft.Container(height=40),
 
                 cpf_value,
@@ -68,7 +66,7 @@ def login_page(on_register, on_menu):
                 ),
                 mensagem_api,
                 ft.CupertinoButton(
-                    content=ft.Text("Registrar", color="#ed8200", font_family="MinhaFonte", size=20), width=150, height=55, on_click=on_register
+                    content=ft.Text("Registrar", color="#ed8200", font_family="MinhaFonte", size=20), width=150, height=55, on_click=on_register,
                 ),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
