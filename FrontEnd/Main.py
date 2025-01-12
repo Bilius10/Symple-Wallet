@@ -17,7 +17,7 @@ def main(page: ft.Page):
         page.clean()
         page.add(register_page(go_to_login))
 
-    def go_to_login(event=None):
+    def go_to_login(event):
         page.clean()
         
         page.add(login_page(go_to_register, go_to_menu))
@@ -26,11 +26,11 @@ def main(page: ft.Page):
         page.clean()
         page.add(menu_page(go_to_login, go_to_AdicionarAcao, InfoUsuario))
 
-    def go_to_AdicionarAcao(InfoUsuario):
+    def go_to_AdicionarAcao(event=None):
         page.clean()
-        page.add(adicionarAcao_page(go_to_menu, InfoUsuario))
+        page.add(adicionarAcao_page())
 
-    go_to_login()
+    go_to_AdicionarAcao()
 
 ft.app(target=main)
 #lembrar de fazer uma forma melhor de transformar as informações do usuario

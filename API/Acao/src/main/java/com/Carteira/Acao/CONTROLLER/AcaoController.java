@@ -1,7 +1,9 @@
 package com.Carteira.Acao.CONTROLLER;
 
+import com.Carteira.Acao.DTO.Devolucao.ErroDTO;
 import com.Carteira.Acao.DTO.Recebimento.AcaoDTO;
 import com.Carteira.Acao.ENTITY.Acoes;
+import com.Carteira.Acao.EXCEPTIONS.RegraNegocioException;
 import com.Carteira.Acao.SERVICES.AcaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -21,11 +23,18 @@ public class AcaoController {
     private AcaoService acaoService;
 
     @PostMapping("/save")
-    private ResponseEntity<Acoes> saveAcao(@RequestBody @Valid AcaoDTO acaoDTO){
+    private ResponseEntity<Object> saveAcao(@RequestBody @Valid AcaoDTO acaoDTO) throws RegraNegocioException {
 
-        Acoes acoes = new Acoes();
+        try {
+            Acoes acoes = new Acoes();
 
-        BeanUtils.copyProperties(acaoDTO, acoes);
-        return ResponseEntity.status(HttpStatus.OK).body(acaoService.saveAcao(acoes));
+            BeanUtils.copyProperties(acaoDTO, acoes);
+
+            return ResponseEntity.status(HttpStatus.OK).body(acaoService.saveAcao(acoes, acaoDTO.idUsuario()));
+        }catch (RegraNegocioException r){
+
+            ErroDTO erroDTO = new ErroDTO(r.getMessage());
+            return ResponseEntity.status(HttpStatus.OK).body(erroDTO);
+        }
     }
 }

@@ -61,13 +61,7 @@ def login_page(on_register, on_menu):
 
                 senha_value,
 
-                ft.CupertinoButton(
-                    content=ft.Text("Enviar", color="#ed8200", font_family="MinhaFonte", size=30), width=400, height=70, on_click=fazerLogin, 
-                ),
-                mensagem_api,
-                ft.CupertinoButton(
-                    content=ft.Text("Registrar", color="#ed8200", font_family="MinhaFonte", size=20), width=150, height=55, on_click=on_register,
-                ),
+                jhFurx6qDTaR892psxCNdTjhFurx6qDTaR892psxCNdT
             ],
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,

@@ -28,8 +28,11 @@ public class LoginService {
         Optional<Login> jaExiste = loginRepository.findLoginByCpf(login.getCpf());
 
         if(jaExiste.isPresent()){
-            new RegraNegocioException("Já existe alguem com esse cpf");
+
+            throw new RegraNegocioException("Já existe alguem com esse cpf");
         }
+
+        login.formatCpf();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(login.getSenha());
         login.setSenha(encryptedPassword);

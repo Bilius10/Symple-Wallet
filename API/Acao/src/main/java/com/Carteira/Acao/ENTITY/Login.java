@@ -47,9 +47,11 @@ public class Login implements UserDetails, Serializable {
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;
         this.enabled = true;
-
     }
 
+    public void formatCpf(){
+        this.cpf = getCpf().replace(".", "").replace("-", "");
+    }
     public Long getIdLogin() {
         return idLogin;
     }
