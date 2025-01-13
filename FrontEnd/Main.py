@@ -22,15 +22,14 @@ def main(page: ft.Page):
         
         page.add(login_page(go_to_register, go_to_menu))
     
-    def go_to_menu(InfoUsuario):
+    def go_to_menu(event):
         page.clean()
-        page.add(menu_page(go_to_login, go_to_AdicionarAcao, InfoUsuario))
+        page.add(menu_page(go_to_login, go_to_AdicionarAcao))
 
     def go_to_AdicionarAcao(event=None):
         page.clean()
-        page.add(adicionarAcao_page())
+        page.add(adicionarAcao_page(go_to_menu))
 
     go_to_AdicionarAcao()
 
 ft.app(target=main)
-#lembrar de fazer uma forma melhor de transformar as informações do usuario

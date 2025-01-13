@@ -1,10 +1,9 @@
 import flet as ft
-import plotly.express as px
 import pandas as pd
-from flet.plotly_chart import PlotlyChart
-from ApiExternaBuscas import nomeAcoes
+from Outros.ApiExternaBuscas import nomeAcoes
 
-def adicionarAcao_page():
+
+def adicionarAcao_page(on_menu):
     
     image = "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/FundoLoginRegistro.png"
 
@@ -25,18 +24,13 @@ def adicionarAcao_page():
     Volume_acao = ft.Text("Volume \n 0", font_family="MinhaFonte", color="#ed8200", size=25)
     Logo_acao = ft.Image(
         src="C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/DefaultLogoValor.png",
-        width=200,
-        height=200,
+        width=150,
+        height=150,
         fit=ft.ImageFit.CONTAIN,
     )
 
-    #Grafico do caontainer 2
-    df = pd.DataFrame({
-        "Dias": [0],
-        "Valor": [0]
-    })
-    fig = px.line(df, x="Valor", y="Dias", title="Gráfico da Ação")
-    grafico = PlotlyChart(fig, expand=True)
+    def voltar(evento):
+        on_menu(evento)
 
     return ft.Row(
     [
@@ -50,10 +44,12 @@ def adicionarAcao_page():
                         height=250,
                         fit=ft.ImageFit.CONTAIN,
                     ),
+
                     codigo_value,
                     nome_value,
                     valor_value,
                     Quantidade_value,
+
                     ft.Row(
                         [
                             ft.CupertinoButton(
@@ -86,8 +82,11 @@ def adicionarAcao_page():
                     ft.Text(
                         "Informações da Ação", size=30, font_family="MinhaFonte", color="#ed8200"
                     ),
+
+                    ft.Container(height=40),
                     Logo_acao,
-                    
+                    ft.Container(height=40),
+
                     ft.Row(
                         [
                             Nome_acao,
@@ -102,6 +101,11 @@ def adicionarAcao_page():
                             Minima_acao
                         ],
                         alignment=ft.MainAxisAlignment.CENTER, spacing=30
+                    ),
+
+                    ft.CupertinoButton(
+                                content=ft.Text("Voltar", color="#ed8200", font_family="MinhaFonte", size=25),
+                                on_click=voltar
                     ),
                     
 

@@ -1,14 +1,13 @@
 import flet as ft
+from Outros.session import session;
 
-def menu_page(on_login, on_AdicionarAcao, InfoUsuario):
+def menu_page(on_login, on_AdicionarAcao):
     
     def voltarLogin(event):
         on_login(event)
 
     def AdicionarAcao(event):
-        on_AdicionarAcao(InfoUsuario)
-
-    cpf = InfoUsuario.json().get('cpf')
+        on_AdicionarAcao(event)
     
     return ft.Container(
         content=ft.Column(
@@ -21,7 +20,7 @@ def menu_page(on_login, on_AdicionarAcao, InfoUsuario):
                 ),
 
                 ft.Text(
-                    f"{  InfoUsuario.json().get('login')}",
+                    f"{  session.user_data.get('login')}",
                     size=30, font_family="MinhaFonte"
                 ),
 

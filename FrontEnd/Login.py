@@ -1,6 +1,7 @@
 import flet as ft
 import requests
 import time
+from Outros.session import session
 
 def login_page(on_register, on_menu):
 
@@ -46,7 +47,11 @@ def login_page(on_register, on_menu):
         mensagem_api.update()
 
         if(response.status_code == 200):
-            on_menu(response)
+            session.user_data['token'] = response.json().get('token')
+            session.user_data['idLogin'] = response.json().get('idLogin')
+            session.user_data['login'] = response.json().get('login')
+            session.user_data['cpf'] = response.json().get('cpf')
+            on_menu(evento)
         
     return ft.Container(
         content=ft.Column(
@@ -61,7 +66,13 @@ def login_page(on_register, on_menu):
 
                 senha_value,
 
-                jhFurx6qDTaR892psxCNdTjhFurx6qDTaR892psxCNdT
+                ft.CupertinoButton(
+                    content=ft.Text("Enviar", color="#ed8200", font_family="MinhaFonte", size=30), width=400, height=70, on_click=fazerLogin, 
+                ),
+                mensagem_api,
+                ft.CupertinoButton(
+                    content=ft.Text("Registrar", color="#ed8200", font_family="MinhaFonte", size=20), width=150, height=55, on_click=on_register,
+                ),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,

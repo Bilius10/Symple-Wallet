@@ -25,4 +25,15 @@ public class ApiAcaoExternaService {
             throw new RuntimeException(e);
         }
     }
+
+    public String pegarInfoDaAcao(String acao){
+
+        try {
+            String url = "https://brapi.dev/api/quote/"+acao+"?token=jhFurx6qDTaR892psxCNdT";
+
+            return restTemplate.getForObject(url, String.class);
+        }catch (RestClientException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
