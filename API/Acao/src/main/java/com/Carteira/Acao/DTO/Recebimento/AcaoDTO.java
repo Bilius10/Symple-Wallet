@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record AcaoDTO(@NotBlank String codigo,
                       @NotBlank String Nome,
-                      @NotNull @Negative Double Valor,
-                      @NotNull @Negative Integer quantidade,
+                      @NotNull Double Valor,
+                      @NotNull Integer quantidade,
                       @NotNull Long idUsuario) {
 }

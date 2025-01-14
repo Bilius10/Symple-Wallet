@@ -17,19 +17,18 @@ def main(page: ft.Page):
         page.clean()
         page.add(register_page(go_to_login))
 
-    def go_to_login(event):
+    def go_to_login(event=None):
         page.clean()
-        
         page.add(login_page(go_to_register, go_to_menu))
     
     def go_to_menu(event):
         page.clean()
         page.add(menu_page(go_to_login, go_to_AdicionarAcao))
 
-    def go_to_AdicionarAcao(event=None):
+    def go_to_AdicionarAcao(event):
         page.clean()
         page.add(adicionarAcao_page(go_to_menu))
 
-    go_to_AdicionarAcao()
+    go_to_login()
 
 ft.app(target=main)
