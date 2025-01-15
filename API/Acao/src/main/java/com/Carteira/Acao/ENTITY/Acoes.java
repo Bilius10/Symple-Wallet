@@ -1,5 +1,6 @@
 package com.Carteira.Acao.ENTITY;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Acoes implements Serializable {
     private Long quantidade;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "Login_idLogin", nullable = false)
     private Login login;
 
@@ -73,5 +75,17 @@ public class Acoes implements Serializable {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    @Override
+    public String toString() {
+        return "Acoes{" +
+                "idAcao=" + idAcao +
+                ", codigo='" + codigo + '\'' +
+                ", Nome='" + Nome + '\'' +
+                ", Valor=" + Valor +
+                ", quantidade=" + quantidade +
+                ", login=" + login +
+                '}';
     }
 }

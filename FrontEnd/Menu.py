@@ -1,14 +1,9 @@
 import flet as ft
 from Outros.session import session;
 
-def menu_page(on_login, on_AdicionarAcao):
+def menu_page(on_login, on_AdicionarAcao, on_carteira):
     
-    def voltarLogin(event):
-        on_login(event)
 
-    def AdicionarAcao(event):
-        on_AdicionarAcao(event)
-    
     return ft.Container(
         content=ft.Column(
             [
@@ -26,11 +21,11 @@ def menu_page(on_login, on_AdicionarAcao):
 
                 ft.CupertinoButton(
                     content=ft.Text("Adicionar Ação", color="#f7931a", font_family="MinhaFonte", size=25),
-                    width=400, height=55, bgcolor="#ffcb8c", on_click=AdicionarAcao
+                    width=400, height=55, bgcolor="#ffcb8c", on_click=on_AdicionarAcao
                 ),
                 ft.CupertinoButton(
                     content=ft.Text("Carteira", color="#f7931a", font_family="MinhaFonte", size=25),
-                    width=400, height=55, bgcolor="#ffcb8c"
+                    width=400, height=55, bgcolor="#ffcb8c", on_click=on_carteira
                 ),
                 ft.CupertinoButton(
                     content=ft.Text("Grafico", color="#f7931a", font_family="MinhaFonte", size=25),
@@ -38,7 +33,7 @@ def menu_page(on_login, on_AdicionarAcao):
                 ),
                 ft.CupertinoButton(
                     content=ft.Text("Voltar ao login", color="#f7931a", font_family="MinhaFonte", size=25),
-                    width=400, height=55, bgcolor="#ffcb8c", on_click=voltarLogin
+                    width=400, height=55, bgcolor="#ffcb8c", on_click=on_login
                 ),
             ],
             alignment=ft.MainAxisAlignment.START,  # Alinha os elementos ao topo

@@ -41,3 +41,4 @@ def infoAcoes(nomeAcao):
         
     except requests.exceptions.RetryError as e:
         return str(e)
+    

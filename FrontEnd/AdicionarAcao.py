@@ -61,11 +61,12 @@ def adicionarAcao_page(on_menu):
     def CadastrarAcaoNaCarteira(Evento):
         
         try:
+           
             parametros = {
-                "codigo": Codigo_acao.value,
+                "codigo": codigo_value.value,
                 "Nome": Nome_acao.value,
                 "Valor": valor_value.value.format(",", "."),
-                "Quantidade": Quantidade_value.value,
+                "quantidade": Quantidade_value.value,
                 "idUsuario": session.user_data.get('idLogin')
             }
             
