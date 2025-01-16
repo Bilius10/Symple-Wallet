@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/external/API/nomes").permitAll()
                         .requestMatchers(HttpMethod.GET, "/external/API/{nome}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/external/API/30dias/{acao}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/acao/save").hasRole("NORMAL")
                         .requestMatchers(HttpMethod.GET, "/acao/infoAcao/{idUsuario}").hasRole("NORMAL")
                         .anyRequest().authenticated()

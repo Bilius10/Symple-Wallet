@@ -8,5 +8,7 @@ import java.util.List;
 
 public record InfoAcaoDTO(@NotNull Double somaValor,
                           @NotBlank List<Acoes> InfoAcoes,
-                          @NotNull Long somaQuantidade) {
+                          @NotNull Long somaQuantidade,
+                          @NotNull String melhorAcao,
+                          @NotNull String piorAcao) {
 }

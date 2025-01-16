@@ -40,4 +40,16 @@ public class ApiAcaoExterna {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDTO);
         }
     }
+
+    @GetMapping("30dias/{acao}")
+    public ResponseEntity<String> pegarInfoAcao30dias(@PathVariable String acao){
+
+        try {
+
+            return ResponseEntity.status(HttpStatus.OK).body(apiAcaoExternaService.pegarInfoDaAcao30dias(acao));
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }

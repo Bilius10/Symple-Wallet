@@ -16,7 +16,7 @@ def carteira_page(on_menu):
         
         if(response.json().get('somaValor') is None):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Pedra.png"
-        
+         
         if(response.json().get('somaValor') <= 1000):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Pedra.png"
         elif(response.json().get('somaValor') <= 5000):
@@ -26,41 +26,71 @@ def carteira_page(on_menu):
         elif(response.json().get('somaValor') <= 50000):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Ruby.png"
         else:
-            return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Diamente.png"
-        
+            return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Diamante.png"
+    
+
+    columns=[ft.DataColumn(ft.Text("Codigo")),
+             ft.DataColumn(ft.Text("Nome")),
+             ft.DataColumn(ft.Text("Quantidade"), numeric=True),
+             ft.DataColumn(ft.Text("Valor Total"), numeric=True)]
+    
+    rows=[ft.DataRow(
+                     cells=[
+                            ft.DataCell(ft.Text(acao["codigo"])),
+                            ft.DataCell(ft.Text(acao["nome"])),
+                            ft.DataCell(ft.Text(f"R$ {acao['quantidade']}")),
+                            ft.DataCell(ft.Text(str(acao["quantidade"]*acao['valor'])))
+                           ]
+                    ) for acao in data["InfoAcoes"]
+        ]
+    
+    data_table = ft.DataTable(columns=columns,rows=rows,border=ft.border.all(1),)
+
+
     return ft.Container(
         content=ft.Column(
             [   
                 ft.Text(
                     f"{session.user_data.get('login')+" Wallet"}",
-                    size=30, font_family="MinhaFonte"
+                    size=30, font_family="MinhaFonte", color="#ed8200"
                 ),
 
                 ft.Image(
                     src=imagemDoNivel(),  
-                    width=300,  
-                    height=300,  
+                    width=200,  
+                    height=200,  
                     fit=ft.ImageFit.CONTAIN,  
                 ),
 
-                ft.DataTable(
-                        columns=[
-                            ft.DataColumn(ft.Text("Codigo")),
-                            ft.DataColumn(ft.Text("Nome")),
-                            ft.DataColumn(ft.Text("Quantidade"), numeric=True),
-                            ft.DataColumn(ft.Text("Valor Total"), numeric=True)
+                ft.Column([data_table], scroll=ft.ScrollMode.ALWAYS, height=150),
+
+                ft.Row(
+                        [
+                            ft.Text(
+                                f"{f"Quantidade \n{data['somaQuantidade']}"}",
+                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            ),
+                            ft.Text(
+                                f"{f"Valor Total \nR$: {data['somaValor']}"}",
+                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            )
                         ],
-                        rows=[
-                            ft.DataRow(
-                            cells=[
-                                ft.DataCell(ft.Text(acao["codigo"])),
-                                ft.DataCell(ft.Text(acao["nome"])),
-                                ft.DataCell(ft.Text(f"R$ {acao['quantidade']}")),
-                                ft.DataCell(ft.Text(str(acao["quantidade"]*acao['valor'])))
-                            ]
-                        ) for acao in data["InfoAcoes"]
-                    ]
-                ),
+                        alignment=ft.MainAxisAlignment.CENTER, spacing=70,
+                    ),
+
+                ft.Row(
+                        [
+                            ft.Text(
+                                f"{f"Melhor Ação \nMGLU3"}",
+                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            ),
+                            ft.Text(
+                                f"{f"Pior Ação \nPETR4"}",
+                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            )
+                        ],
+                        alignment=ft.MainAxisAlignment.CENTER, spacing=70,
+                    )
             
             ],
             alignment=ft.MainAxisAlignment.START, 

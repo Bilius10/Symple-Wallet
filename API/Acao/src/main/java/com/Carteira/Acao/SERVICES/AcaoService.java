@@ -45,7 +45,7 @@ public class AcaoService {
         Long somaQuantidade = acaoRepository.findSumQuantidadeAcoesByLoginIdLogin(idUsuario);
         List<Acoes> listaAcoes = acaoRepository.findAcoesByLoginIdLogin(idUsuario);
 
-        InfoAcaoDTO infoAcaoDTO = new InfoAcaoDTO(somaValor, listaAcoes, somaQuantidade);
+        InfoAcaoDTO infoAcaoDTO = new InfoAcaoDTO(somaValor, listaAcoes, somaQuantidade, "we", "fd");
         return infoAcaoDTO;
     }
 

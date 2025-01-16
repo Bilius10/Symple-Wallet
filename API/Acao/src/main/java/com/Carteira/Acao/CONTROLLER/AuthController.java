@@ -1,7 +1,6 @@
 package com.Carteira.Acao.CONTROLLER;
 
 import com.Carteira.Acao.DTO.Devolucao.ErroDTO;
-import com.Carteira.Acao.DTO.Devolucao.LoginRespostaDTO;
 import com.Carteira.Acao.DTO.Recebimento.LoginDTO;
 import com.Carteira.Acao.DTO.Recebimento.RegistroDTO;
 import com.Carteira.Acao.ENTITY.Login;

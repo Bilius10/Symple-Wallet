@@ -118,7 +118,7 @@ def adicionarAcao_page(on_menu):
 
                 ft.CupertinoButton(
                             content=ft.Text("Voltar", color="#ed8200", font_family="MinhaFonte", size=25),
-                            on_click=voltar  # Aqui a função de voltar é mais direta
+                            on_click=voltar 
                 ),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
