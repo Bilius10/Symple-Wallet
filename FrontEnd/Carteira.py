@@ -2,7 +2,6 @@ import flet as ft
 import pandas as pd
 import requests
 import time
-from Outros.ApiExternaBuscas import nomeAcoes, infoAcoes
 from Outros.session import session
 
 
@@ -32,14 +31,14 @@ def carteira_page(on_menu):
     columns=[ft.DataColumn(ft.Text("Codigo")),
              ft.DataColumn(ft.Text("Nome")),
              ft.DataColumn(ft.Text("Quantidade"), numeric=True),
-             ft.DataColumn(ft.Text("Valor Total"), numeric=True)]
+             ft.DataColumn(ft.Text("Valor"), numeric=True)]
     
     rows=[ft.DataRow(
                      cells=[
                             ft.DataCell(ft.Text(acao["codigo"])),
                             ft.DataCell(ft.Text(acao["nome"])),
                             ft.DataCell(ft.Text(f"R$ {acao['quantidade']}")),
-                            ft.DataCell(ft.Text(str(acao["quantidade"]*acao['valor'])))
+                            ft.DataCell(ft.Text(str(acao['valor'])))
                            ]
                     ) for acao in data["InfoAcoes"]
         ]
@@ -62,36 +61,57 @@ def carteira_page(on_menu):
                     fit=ft.ImageFit.CONTAIN,  
                 ),
 
-                ft.Column([data_table], scroll=ft.ScrollMode.ALWAYS, height=150),
+                ft.Column([data_table], scroll=ft.ScrollMode.ALWAYS, height=130),
 
                 ft.Row(
                         [
-                            ft.Text(
-                                f"{f"Quantidade \n{data['somaQuantidade']}"}",
-                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            ft.Container(
+                                content=ft.Text(
+                                    f"Quantidade \n {data['somaQuantidade']}",
+                                    size=25, font_family="MinhaFonte", color="#ed8200",
+                                    text_align=ft.TextAlign.CENTER
+                                ),
+                                alignment=ft.alignment.center,
+                                width=200 
                             ),
-                            ft.Text(
-                                f"{f"Valor Total \nR$: {data['somaValor']}"}",
-                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            ft.Container(
+                                content=ft.Text(
+                                    f"Valor Total \n R$: {data['somaValor']}",
+                                    size=25, font_family="MinhaFonte", color="#ed8200",
+                                    text_align=ft.TextAlign.CENTER
+                                ),
+                                alignment=ft.alignment.center,
+                                width=200
                             )
                         ],
-                        alignment=ft.MainAxisAlignment.CENTER, spacing=70,
-                    ),
-
-                ft.Row(
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN ),
+                    ft.Row(
                         [
-                            ft.Text(
-                                f"{f"Melhor Ação \nMGLU3"}",
-                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            ft.Container(
+                                content=ft.Text(
+                                    f"Melhor Ação \n {data['melhorAcao']}",
+                                    size=25, font_family="MinhaFonte", color="#ed8200",
+                                    text_align=ft.TextAlign.CENTER
+                                ),
+                                alignment=ft.alignment.center,
+                                width=200
                             ),
-                            ft.Text(
-                                f"{f"Pior Ação \nPETR4"}",
-                                size=30, font_family="MinhaFonte", color="#ed8200"
+                            ft.Container(
+                                content=ft.Text(
+                                    f"Pior Ação \n {data['piorAcao']}",
+                                    size=25, font_family="MinhaFonte", color="#ed8200",
+                                    text_align=ft.TextAlign.CENTER
+                                ),
+                                alignment=ft.alignment.center,
+                                width=200
                             )
                         ],
-                        alignment=ft.MainAxisAlignment.CENTER, spacing=70,
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+
+                    ft.CupertinoButton(
+                        content=ft.Text("Voltar", color="#ed8200", font_family="MinhaFonte", size=25),
+                        on_click=on_menu
                     )
-            
             ],
             alignment=ft.MainAxisAlignment.START, 
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,

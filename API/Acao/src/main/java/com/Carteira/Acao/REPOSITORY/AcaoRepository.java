@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AcaoRepository extends JpaRepository<Acoes, Long> {
@@ -19,5 +20,6 @@ public interface AcaoRepository extends JpaRepository<Acoes, Long> {
     @Query("select sum(a.Valor*a.quantidade)from Acoes a where a.login.idLogin = :idLogin")
     Double findSumValorAcoesByLoginIdLogin(Long idLogin);
 
-
+    @Query("select a from Acoes a where a.codigo = :codigo")
+    Optional<Acoes> findAcoesByCodigo(String codigo);
 }

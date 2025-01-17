@@ -5,6 +5,7 @@ import com.Carteira.Acao.DTO.Recebimento.AcaoDTO;
 import com.Carteira.Acao.ENTITY.Acoes;
 import com.Carteira.Acao.EXCEPTIONS.RegraNegocioException;
 import com.Carteira.Acao.SERVICES.AcaoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class AcaoController {
         try {
 
             return ResponseEntity.status(HttpStatus.OK).body(acaoService.infoAcao(idUsuario));
-        }catch (RegraNegocioException r){
+        }catch (RegraNegocioException | JsonProcessingException r){
 
             ErroDTO erroDTO = new ErroDTO(r.getMessage());
             return ResponseEntity.status(HttpStatus.OK).body(erroDTO);

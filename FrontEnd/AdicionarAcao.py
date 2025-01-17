@@ -34,9 +34,6 @@ def adicionarAcao_page(on_menu):
         fit=ft.ImageFit.CONTAIN,
     )
 
-    def voltar(evento):
-        on_menu(evento)
-
     def InformaçãoAçao(evento):
         response = infoAcoes(codigo_value.value)
         inserir = response.json()
@@ -118,7 +115,7 @@ def adicionarAcao_page(on_menu):
 
                 ft.CupertinoButton(
                             content=ft.Text("Voltar", color="#ed8200", font_family="MinhaFonte", size=25),
-                            on_click=voltar 
+                            on_click=on_menu 
                 ),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
