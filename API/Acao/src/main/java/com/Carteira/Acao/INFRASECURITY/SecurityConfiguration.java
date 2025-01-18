@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/external/API/30dias/{acao}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/acao/save").hasRole("NORMAL")
                         .requestMatchers(HttpMethod.GET, "/acao/infoAcao/{idUsuario}").hasRole("NORMAL")
+                        .requestMatchers(HttpMethod.GET, "/acao/usuario/{idUsuario}").hasRole("NORMAL")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

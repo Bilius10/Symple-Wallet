@@ -1,7 +1,5 @@
 import flet as ft
-import pandas as pd
 import requests
-import time
 from Outros.session import session
 
 
@@ -33,12 +31,13 @@ def carteira_page(on_menu):
              ft.DataColumn(ft.Text("Quantidade"), numeric=True),
              ft.DataColumn(ft.Text("Valor"), numeric=True)]
     
+    
     rows=[ft.DataRow(
                      cells=[
                             ft.DataCell(ft.Text(acao["codigo"])),
                             ft.DataCell(ft.Text(acao["nome"])),
-                            ft.DataCell(ft.Text(f"R$ {acao['quantidade']}")),
-                            ft.DataCell(ft.Text(str(acao['valor'])))
+                            ft.DataCell(ft.Text(acao['quantidade'])),
+                            ft.DataCell(ft.Text(acao['valor'] if acao['valor'] > 0 else  acao['valor'] * -1))
                            ]
                     ) for acao in data["InfoAcoes"]
         ]

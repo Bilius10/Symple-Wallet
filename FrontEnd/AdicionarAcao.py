@@ -1,38 +1,12 @@
 import flet as ft
-import pandas as pd
 import requests
 import time
 from Outros.ApiExternaBuscas import nomeAcoes, infoAcoes
 from Outros.session import session
 
 def adicionarAcao_page(on_menu):
-    
-    image = "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/FundoLoginRegistro.png"
 
-    #Container 1
-    lista_acoes = nomeAcoes()
-    codigo_value = ft.Dropdown(label="Ações", hint_content="Escolha sua ação", options= [ft.dropdown.Option(acao) for acao in lista_acoes], autofocus=True, prefix=image, border_color="#f7931a", label_style=ft.TextStyle(color="#000000"), width=400, height=50)
-
-    nome_value = ft.TextField(label="Nome açao", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
-
-    valor_value = ft.TextField(label="Valor Unitario", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
-
-    Quantidade_value = ft.TextField(label="Quantidade", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
-    
-    mensagem_api = ft.Text("", color="white", font_family="MinhaFonte")
-
-    #Container 2
-    Nome_acao = ft.Text("Nome da ação", font_family="MinhaFonte", color="#ed8200", size=30)
-    Codigo_acao = ft.Text("Codigo \n Nome ", font_family="MinhaFonte", color="#ed8200", size=25)
-    Maxima_acao = ft.Text("Maxima \n R$:0.00", font_family="MinhaFonte", color="#ed8200", size=25)
-    Minima_acao = ft.Text("Minima \n R$:0.00", font_family="MinhaFonte", color="#ed8200", size=25)
-    Volume_acao = ft.Text("Volume \n 0", font_family="MinhaFonte", color="#ed8200", size=25)
-    Logo_acao = ft.Image(
-        src="C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/DefaultLogoValor.png",
-        width=150,
-        height=150,
-        fit=ft.ImageFit.CONTAIN,
-    )
+    estado_positivo = True
 
     def InformaçãoAçao(evento):
         response = infoAcoes(codigo_value.value)
@@ -56,17 +30,19 @@ def adicionarAcao_page(on_menu):
         container_2.update()
 
     def CadastrarAcaoNaCarteira(Evento):
+        nonlocal estado_positivo
         
         try:
            
             parametros = {
                 "codigo": codigo_value.value,
                 "Nome": Nome_acao.value,
-                "Valor": valor_value.value.format(",", "."),
-                "quantidade": Quantidade_value.value,
+                "Valor": valor_value.value if estado_positivo == True else float(valor_value.value) * -1,
+                "quantidade": Quantidade_value.value  if estado_positivo == True else float(Quantidade_value.value) * -1,
                 "idUsuario": session.user_data.get('idLogin')
             }
             
+
             headers = {"Authorization": "Bearer "+session.user_data.get('token')}
 
             response = requests.post("http://localhost:8080/acao/save", json=parametros, headers=headers)
@@ -87,6 +63,44 @@ def adicionarAcao_page(on_menu):
 
         mensagem_api.value = ""
         mensagem_api.update()
+
+    def mudarSinal(evento):
+        nonlocal estado_positivo  
+        if estado_positivo:
+            sinal.content = ft.Text("-", color="#FF0000", font_family="MinhaFonte", size=20)
+        else:
+            sinal.content = ft.Text("+", color="#008000", font_family="MinhaFonte", size=20)
+        estado_positivo = not estado_positivo  
+        sinal.update()
+
+    image = "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/FundoLoginRegistro.png"
+
+    #Container 1
+    lista_acoes = nomeAcoes()
+    codigo_value = ft.Dropdown(label="Ações", hint_content="Escolha sua ação", options= [ft.dropdown.Option(acao) for acao in lista_acoes], autofocus=True, prefix=image, border_color="#f7931a", label_style=ft.TextStyle(color="#000000"), width=400, height=50)
+
+    nome_value = ft.TextField(label="Nome açao", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
+
+    valor_value = ft.TextField(label="Valor Unitario", width=343, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
+
+    sinal = ft.ElevatedButton(content=ft.Text("+", color="#008000", font_family="MinhaFonte", size=20),width=50, height=50, bgcolor="#ffcb8c", on_click=mudarSinal)
+
+    Quantidade_value = ft.TextField(label="Quantidade", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
+
+    mensagem_api = ft.Text("", color="white", font_family="MinhaFonte")
+    
+    #Container 2
+    Nome_acao = ft.Text("Nome da ação", font_family="MinhaFonte", color="#ed8200", size=30)
+    Codigo_acao = ft.Text("Codigo \n Nome ", font_family="MinhaFonte", color="#ed8200", size=25)
+    Maxima_acao = ft.Text("Maxima \n R$:0.00", font_family="MinhaFonte", color="#ed8200", size=25)
+    Minima_acao = ft.Text("Minima \n R$:0.00", font_family="MinhaFonte", color="#ed8200", size=25)
+    Volume_acao = ft.Text("Volume \n 0", font_family="MinhaFonte", color="#ed8200", size=25)
+    Logo_acao = ft.Image(
+        src="C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/DefaultLogoValor.png",
+        width=150,
+        height=150,
+        fit=ft.ImageFit.CONTAIN,
+    )
 
     container_2 = ft.Container(
         content=ft.Column(
@@ -147,7 +161,14 @@ def adicionarAcao_page(on_menu):
 
                     codigo_value,
                     nome_value,
-                    valor_value,
+                    
+                    ft.Row(
+                        controls=[
+                            valor_value,
+                            sinal
+                        ],  alignment=ft.MainAxisAlignment.CENTER
+                    ),
+
                     Quantidade_value,
                     mensagem_api,
 

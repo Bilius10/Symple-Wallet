@@ -22,4 +22,5 @@ public interface AcaoRepository extends JpaRepository<Acoes, Long> {
 
     @Query("select a from Acoes a where a.codigo = :codigo")
     Optional<Acoes> findAcoesByCodigo(String codigo);
+
 }

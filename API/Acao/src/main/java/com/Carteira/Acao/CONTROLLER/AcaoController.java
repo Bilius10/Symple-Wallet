@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/acao")
 public class AcaoController {
@@ -47,5 +49,11 @@ public class AcaoController {
             ErroDTO erroDTO = new ErroDTO(r.getMessage());
             return ResponseEntity.status(HttpStatus.OK).body(erroDTO);
         }
+    }
+
+    @GetMapping("/usuario/{idUsuario}")
+    private ResponseEntity<List<String>> acoesUsuarioPossue(@PathVariable Long idUsuario){
+
+        return ResponseEntity.status(HttpStatus.OK).body(acaoService.acoesUsuarioPossue(idUsuario));
     }
 }

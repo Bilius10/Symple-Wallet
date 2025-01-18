@@ -4,7 +4,7 @@ from Registro import register_page
 from Menu import menu_page
 from AdicionarAcao import adicionarAcao_page
 from Carteira import carteira_page
-import time
+from Grafico import grafico_page
 
 def main(page: ft.Page):
     page.title = "Carteira de Ação"
@@ -25,7 +25,7 @@ def main(page: ft.Page):
     
     def go_to_menu(event):
         page.clean()
-        page.add(menu_page(go_to_login, go_to_AdicionarAcao, go_to_carteira))
+        page.add(menu_page(go_to_login, go_to_AdicionarAcao, go_to_carteira, go_to_grafico))
 
     def go_to_AdicionarAcao(event):
         page.clean()
@@ -35,6 +35,11 @@ def main(page: ft.Page):
     def go_to_carteira(event):
         page.clean()
         page.add(carteira_page(go_to_menu))
+
+    def go_to_grafico(event):
+        page.clean()
+        page.add(grafico_page(go_to_menu))
+
     go_to_login()
 
 ft.app(target=main)

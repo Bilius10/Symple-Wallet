@@ -1,7 +1,7 @@
 import flet as ft
 from Outros.session import session;
 
-def menu_page(on_login, on_adicionarAcao, on_carteira):
+def menu_page(on_login, on_adicionarAcao, on_carteira, on_grafico):
     
 
     return ft.Container(
@@ -29,7 +29,7 @@ def menu_page(on_login, on_adicionarAcao, on_carteira):
                 ),
                 ft.CupertinoButton(
                     content=ft.Text("Grafico", color="#f7931a", font_family="MinhaFonte", size=25),
-                      width=400, height=55, bgcolor="#ffcb8c"
+                      width=400, height=55, bgcolor="#ffcb8c", on_click=on_grafico
                 ),
                 ft.CupertinoButton(
                     content=ft.Text("Voltar ao login", color="#f7931a", font_family="MinhaFonte", size=25),

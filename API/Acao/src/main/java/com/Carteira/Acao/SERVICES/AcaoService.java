@@ -63,4 +63,11 @@ public class AcaoService {
         return infoAcaoDTO;
     }
 
+    public List<String> acoesUsuarioPossue(Long idLogin){
+        List<Acoes> acoesByLoginIdLogin = acaoRepository.findAcoesByLoginIdLogin(idLogin);
+        return acoesByLoginIdLogin.stream().map(Acoes::getCodigo).toList();
+    }
+
+
+
 }
