@@ -1,26 +1,25 @@
 import flet as ft
-import requests
+from Outros import ApiExternaBuscas
 from Outros.session import session
 
 
 def carteira_page(on_menu):
     
-    headers = {"Authorization": "Bearer "+session.user_data.get('token')}
-    response = requests.get("http://localhost:8080/acao/infoAcao/"+str(session.user_data.get('idLogin')), headers=headers)
-    data = response.json()
+    data = ApiExternaBuscas.InfoAcoes30diasEditada()
+    
 
     def imagemDoNivel():
         
-        if(response.json().get('somaValor') is None):
+        if(data['somaValor'] is None):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Pedra.png"
          
-        if(response.json().get('somaValor') <= 1000):
+        if(data['somaValor'] <= 1000):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Pedra.png"
-        elif(response.json().get('somaValor') <= 5000):
+        elif(data['somaValor'] <= 5000):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Carvao.png"
-        elif(response.json().get('somaValor') <= 10000):
+        elif(data['somaValor'] <= 10000):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/ouro.png"
-        elif(response.json().get('somaValor') <= 50000):
+        elif(data['somaValor'] <= 50000):
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Ruby.png"
         else:
             return "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/Diamante.png"

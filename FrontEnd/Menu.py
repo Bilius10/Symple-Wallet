@@ -28,7 +28,7 @@ def menu_page(on_login, on_adicionarAcao, on_carteira, on_grafico):
                     width=400, height=55, bgcolor="#ffcb8c", on_click=on_carteira
                 ),
                 ft.CupertinoButton(
-                    content=ft.Text("Grafico", color="#f7931a", font_family="MinhaFonte", size=25),
+                    content=ft.Text("Dashboard de Ações", color="#f7931a", font_family="MinhaFonte", size=25),
                       width=400, height=55, bgcolor="#ffcb8c", on_click=on_grafico
                 ),
                 ft.CupertinoButton(

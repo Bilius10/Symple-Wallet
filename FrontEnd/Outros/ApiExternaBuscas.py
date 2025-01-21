@@ -44,9 +44,22 @@ def infoAcoes(nomeAcao):
     except requests.exceptions.RetryError as e:
         return str(e)
     
-def InfoAcoes30dias(idLogin):
+def InfoAcoes30diasEditada():
     headers = {"Authorization": "Bearer "+session.user_data.get('token')}
     response = requests.get("http://localhost:8080/acao/infoAcao/"+str(session.user_data.get('idLogin')), headers=headers)
+    data = response.json()
+
+    return data
+
+def InfoAcoes30diasCompleta(acao):
+    response = requests.get("http://localhost:8080/external/API/30dias/"+acao)
+    data = response.json()
+
+    return data
+
+def acoesUsuario():
+    headers = {"Authorization": "Bearer "+session.user_data.get('token')}
+    response = requests.get("http://localhost:8080/acao/usuario/"+str(session.user_data.get('idLogin')), headers=headers)
     data = response.json()
 
     return data
