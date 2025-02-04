@@ -63,3 +63,10 @@ def acoesUsuario():
     data = response.json()
 
     return data
+
+def CadastrarAcaoNaCarteira(parametros):
+    headers = {"Authorization": "Bearer "+session.user_data.get('token')}
+
+    response = requests.post("http://localhost:8080/acao/save", json=parametros, headers=headers)
+    
+    return response

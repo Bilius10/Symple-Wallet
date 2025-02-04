@@ -31,7 +31,6 @@ def main(page: ft.Page):
         page.clean()
         page.add(adicionarAcao_page(go_to_menu))
     
-    
     def go_to_carteira(event):
         page.clean()
         page.add(carteira_page(go_to_menu))
@@ -39,7 +38,6 @@ def main(page: ft.Page):
     def go_to_grafico(event):
         page.clean()
         page.add(grafico_page(go_to_menu))
-
+    
     go_to_login()
-
 ft.app(target=main)

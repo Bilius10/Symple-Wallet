@@ -5,10 +5,9 @@ import time
 def register_page(on_login):
     
     image = "C:/Users/João Vitor/IdeaProjects/CarteiraAcao/FrontEnd/Imagens/FundoLoginRegistro.png"
-    nome_value = ft.TextField(label="Nome", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image,
-                              border_color="#f7931a")
-    senha_value = ft.TextField(label="Senha", width=400, height=50, password=True, label_style= ft.TextStyle(color="#000000"),       prefix=image, border_color="#f7931a")
-    cpf_value = ft.TextField(label="CPF", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
+    nome_value = ft.TextField(label="Nome", width=400, height=50, label_style= ft.TextStyle(color="#000000"), text_style=ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a")
+    senha_value = ft.TextField(label="Senha", width=400, height=50, password=True, label_style= ft.TextStyle(color="#000000"),       prefix=image, border_color="#f7931a", text_style=ft.TextStyle(color="#000000"))
+    cpf_value = ft.TextField(label="CPF", width=400, height=50, label_style= ft.TextStyle(color="#000000"), prefix=image, border_color="#f7931a", text_style=ft.TextStyle(color="#000000"))
     
     
     mensagem_api = ft.Text("", color="white", font_family="MinhaFonte")

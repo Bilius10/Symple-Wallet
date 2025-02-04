@@ -1,7 +1,7 @@
 import flet as ft
 import requests
 import time
-from Outros.ApiExternaBuscas import nomeAcoes, infoAcoes
+from Outros.ApiExternaBuscas import nomeAcoes, infoAcoes, CadastrarAcaoNaCarteira
 from Outros.session import session
 
 def adicionarAcao_page(on_menu):
@@ -11,10 +11,15 @@ def adicionarAcao_page(on_menu):
     def InformaçãoAçao(evento):
         response = infoAcoes(codigo_value.value)
         inserir = response.json()
-
+        
         nome_acao = str(inserir['results'][0].get('longName', 'Null'))
-        maxima_acao = str(inserir['results'][0].get('regularMarketDayHigh', '0'))
-        minima_acao = str(inserir['results'][0].get('regularMarketDayLow', '0'))
+
+        minimo = inserir['results'][0].get('regularMarketDayLow', 0)
+        minima_acao = str(minimo if minimo != 0 else inserir['results'][0].get('regularMarketPrice', 0))
+
+        maxima =  inserir['results'][0].get('regularMarketDayHigh', 0)
+        maxima_acao = str(maxima if maxima != 0 else inserir['results'][0].get('regularMarketPrice', 0))
+        
         volume_acao = str(inserir['results'][0].get('regularMarketVolume', '0'))
         logo_url = str(inserir['results'][0].get('logourl', ''))
 
@@ -42,10 +47,7 @@ def adicionarAcao_page(on_menu):
                 "idUsuario": session.user_data.get('idLogin')
             }
             
-
-            headers = {"Authorization": "Bearer "+session.user_data.get('token')}
-
-            response = requests.post("http://localhost:8080/acao/save", json=parametros, headers=headers)
+            response = CadastrarAcaoNaCarteira(parametros)
 
             if(response.status_code == 200):
                 mensagem_api.value = "Ação adicionada"
